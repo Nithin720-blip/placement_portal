@@ -5,5 +5,5 @@ jinja2
 python-multipart
 pytest
 flake8
-httpx
+httpx<0.28.0
 pip-audit
