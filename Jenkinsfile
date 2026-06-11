@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // REPLACE 'your_dockerhub_username' with your actual Docker Hub username in the exam
-        DOCKER_IMAGE = 'your_dockerhub_username/placement-portal'
+        DOCKER_IMAGE = 'nithinsn/placement-portal'
         IMAGE_TAG = "${BUILD_NUMBER}"
         DOCKER_CREDENTIALS_ID = 'docker-hub-credentials' // ID of credentials set up in Jenkins
     }
