@@ -7,3 +7,13 @@ pytest
 flake8
 httpx<0.28.0
 pip-audit
+fastapi
+uvicorn
+pymysql
+jinja2
+python-multipart
+pytest
+flake8
+httpx<0.28.0
+pip-audit
+itsdangerous
