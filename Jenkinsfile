@@ -19,12 +19,18 @@ pipeline {
         }
 
         stage('Dependency Check') {
-            steps {
-                echo '--- Stage 2: Auditing Dependencies ---'
-                bat 'pip install pip-audit'
-                bat 'pip-audit -r requirements.txt'
-            }
-        }
+steps {
+echo '--- Stage 2: Installing & Auditing Dependencies ---'
+
+    bat 'python -m pip install --upgrade pip'
+    bat 'pip install -r requirements.txt'
+
+    bat 'pip install pip-audit'
+    bat 'pip-audit -r requirements.txt'
+}
+
+}
+
 
         stage('Code Quality Check') {
             steps {
