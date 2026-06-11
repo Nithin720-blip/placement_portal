@@ -23,7 +23,7 @@ def render_template(request: Request, name: str, context: dict):
     import inspect
     sig = inspect.signature(templates.TemplateResponse)
     if "request" in sig.parameters:
-        return templates.TemplateResponse(request=request, name=name, context=context)
+        return templates.TemplateResponse(request=request, name=name, context=context)  # type: ignore
     else:
         return templates.TemplateResponse(name, context)
 
