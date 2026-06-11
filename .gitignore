@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+venv/
+ENV/
+.pytest_cache/
+.vscode/
+*.log
+mysql_data/
