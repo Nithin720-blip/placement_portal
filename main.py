@@ -17,6 +17,17 @@ app.add_middleware(SessionMiddleware, secret_key="replace-with-a-secure-random-k
 
 templates = Jinja2Templates(directory="templates")
 
+
+def render_template(request: Request, name: str, context: dict):
+    context["request"] = request
+    import inspect
+    sig = inspect.signature(templates.TemplateResponse)
+    if "request" in sig.parameters:
+        return templates.TemplateResponse(request=request, name=name, context=context)
+    else:
+        return templates.TemplateResponse(name, context)
+
+
 ADMIN_EMAIL = "admin@college.com"
 ADMIN_PASSWORD = "admin123"
 
@@ -40,17 +51,19 @@ def startup_event():
 
 @app.get("/", response_class=HTMLResponse)
 def login_page(request: Request):
-    return templates.TemplateResponse(
+    return render_template(
+        request,
         "login.html",
-        {"request": request, "message": get_flash(request)}
+        {"message": get_flash(request)}
     )
 
 
 @app.get("/register", response_class=HTMLResponse)
 def register_page(request: Request):
-    return templates.TemplateResponse(
+    return render_template(
+        request,
         "register.html",
-        {"request": request, "message": get_flash(request)}
+        {"message": get_flash(request)}
     )
 
 
@@ -113,10 +126,10 @@ def jobs_page(request: Request):
         flash(request, "Please login first.")
         return RedirectResponse("/", status_code=303)
 
-    return templates.TemplateResponse(
+    return render_template(
+        request,
         "jobs.html",
         {
-            "request": request,
             "jobs": get_jobs(),
             "user": user,
             "message": get_flash(request),
@@ -131,9 +144,10 @@ def admin_page(request: Request):
         flash(request, "Admin access is required.")
         return RedirectResponse("/", status_code=303)
 
-    return templates.TemplateResponse(
+    return render_template(
+        request,
         "admin.html",
-        {"request": request, "user": user, "message": get_flash(request)},
+        {"user": user, "message": get_flash(request)},
     )
 
 
